@@ -1,2 +1,0 @@
-{'umpire_name': 'Twm Stone'}
-[['Twm Stone', 'tops2', "Christ's", '4.25', 'Full Water', ['Cloakless'], 'Dangerous, and maybe armed', False, True, 0, False], ['Liz Gaberdiel', 'ekg25', "St. John's", '25.4', 'No Water', ['Rabadon'], 'Nope.', False, True, 0, False]]
