@@ -141,3 +141,5 @@ def repack(details):
     isWanted = details[10]
     loaded_assassin = [name, email, college, address, waterStatus, pseudonym, notes, isPolice, isAlive, policeRank, isWanted]
     return Assassin(*loaded_assassin)
+
+#test comment
