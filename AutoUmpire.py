@@ -1,5 +1,5 @@
 from setup import *
-from players import *
+from assassin_class import *
 from running import *  
 
 

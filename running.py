@@ -15,3 +15,4 @@ def main_operation(data):
 def player_menu(data):
     while True:
         option = input('To add a new player, press n. To edit an existing player, press e. ')
+        break
