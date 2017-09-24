@@ -1,3 +1,5 @@
+from email_sending import send_email
+
 class Assassin(object):
     def __init__(self, information):
         self.name = information['name']
