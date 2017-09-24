@@ -19,10 +19,8 @@ def startup():
             else:
                 print("Loading " + load_file + " ...")
                 loaded_data = load(load_file)
-                game_config = loaded_data[0]
-                player_list = loaded_data[1]
                 break
-        data = {name: load_file, settings: game_config, players: player_list}
+        data = loaded_data
     main_operation(data)
 
 def newgame():
@@ -33,13 +31,13 @@ def newgame():
     print("Begin adding players now.")
     player_list = add_more_players(player_list)
     print("Welcome, umpire.")
-    data = {'name': game_name, 'settings': game_config, 'players': player_list}
+    data = {'name': game_name, 'settings': game_config, 'players': player_list, 'events': []}
     save(data)
     return data
 
 def add_more_players(player_list):
     while True:
-        new_player = add_player()
+        new_player = add_player(len(player_list)+1)
         if new_player != False:
             player_list.append(new_player)
             test = input("Player successfully added. Press enter to continue adding players, or any other key to proceed to other options. ")
@@ -54,8 +52,9 @@ def load(file):
         list_of_players = eval((load_file.readline()).strip())
         for details in list_of_players:
             player_list.append(repack(details))
+        event_list = eval((load_file.readline()).strip())
 
-    loaded_data = {'name': file, 'settings': game_config, 'players': player_list}
+    loaded_data = {'name': file, 'settings': game_config, 'players': player_list, 'events': event_list}
     return loaded_data
     
 
@@ -67,10 +66,11 @@ def save(data):
         for assassin in data['players']:
             list_of_players.append(unpack(assassin))
         file.write(str(list_of_players))
+        file.write(str(data['events']))
 
 
 
-def add_player():
+def add_player(player_id):
     name = input("Name? ")
     college = input("College? ")
     address = input("Address/Room number? ")
@@ -104,7 +104,7 @@ def add_player():
     print("You are about to add %s, of %s, %s, email %s with an initial pseudonym of %s, police status: %s and additional notes: %s" % (name, address, college, email, pseudonym, isPolice, notes))
     confirmation = input("Press enter to confirm; to cancel enter any other string. ")
     if confirmation == '':
-        new_assassin = {'name': name, 'email': email, 'college': college, 'address': address, 'waterStatus': waterStatus, 'pseudonym': [pseudonym], 'notes': notes, 'isPolice': isPolice, 'isAlive': True, 'policeRank': rank, 'isWanted': False}
+        new_assassin = {'name': name, 'email': email, 'player_id': player_id, 'college': college, 'address': address, 'waterStatus': waterStatus, 'pseudonym': [pseudonym], 'notes': notes, 'isPolice': isPolice, 'isAlive': True, 'policeRank': rank, 'isWanted': False}
         return Assassin(new_assassin)
     else:
         return False
