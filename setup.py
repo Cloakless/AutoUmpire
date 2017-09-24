@@ -1,6 +1,6 @@
 import os
 from running import *
-from players import *
+from assassin_class import *
 
 def startup():
     print("Welcome to the Cambridge Assassins' Guild AutoUmpire.")
@@ -22,7 +22,7 @@ def startup():
                 game_config = loaded_data[0]
                 player_list = loaded_data[1]
                 break
-        data = [load_file, game_config, player_list]
+        data = {name: load_file, settings: game_config, players: player_list}
     main_operation(data)
 
 def newgame():
@@ -33,8 +33,8 @@ def newgame():
     print("Begin adding players now.")
     player_list = add_more_players(player_list)
     print("Welcome, umpire.")
-    save(game_name, game_config, player_list)
-    data = [game_name, game_config, player_list]
+    data = {'name': game_name, 'settings': game_config, 'players': player_list}
+    save(data)
     return data
 
 def add_more_players(player_list):
@@ -55,18 +55,19 @@ def load(file):
         for details in list_of_players:
             player_list.append(repack(details))
 
-    loaded_data = [game_config, player_list]
+    loaded_data = {'name': file, 'settings': game_config, 'players': player_list}
     return loaded_data
     
 
-def save(file_name, config, player_list):
-    with open(file_name, 'w') as file:
-        saved_dict = config
-        file.write(str(saved_dict)+'\n')
+def save(data):
+    with open(data['name'], 'w') as file:
+        config = data['settings']
+        file.write(str(config)+'\n')
         list_of_players = []
-        for assassin in player_list:
+        for assassin in data['players']:
             list_of_players.append(unpack(assassin))
         file.write(str(list_of_players))
+
 
 
 def add_player():
@@ -103,44 +104,46 @@ def add_player():
     print("You are about to add %s, of %s, %s, email %s with an initial pseudonym of %s, police status: %s and additional notes: %s" % (name, address, college, email, pseudonym, isPolice, notes))
     confirmation = input("Press enter to confirm; to cancel enter any other string. ")
     if confirmation == '':
-        new_assassin = [name, email, college, address, waterStatus, [pseudonym], notes, isPolice, True, rank, False]
-        return Assassin(*new_assassin)
+        new_assassin = {'name': name, 'email': email, 'college': college, 'address': address, 'waterStatus': waterStatus, 'pseudonym': [pseudonym], 'notes': notes, 'isPolice': isPolice, 'isAlive': True, 'policeRank': rank, 'isWanted': False}
+        return Assassin(new_assassin)
     else:
         return False
 
 
 def unpack(assassin):
-    details = []
-    details.append(assassin.name)
-    details.append(assassin.email)
-    details.append(assassin.college)
-    details.append(assassin.address)
-    details.append(assassin.waterStatus)
-    details.append(assassin.pseudonym)
-    details.append(assassin.notes)
-    details.append(assassin.isPolice)
-    details.append(assassin.isAlive)
-    details.append(assassin.policeRank)
-    details.append(assassin.isWanted)
+    details = {}
+    details['name'] = assassin.name
+    details['email'] = assassin.email
+    details['college'] = assassin.college
+    details['address'] = assassin.address
+    details['waterStatus'] = assassin.waterStatus
+    details['pseudonym'] = assassin.pseudonym
+    details['notes'] = assassin.notes
+    details['isPolice'] = assassin.isPolice
+    details['isAlive'] = assassin.isAlive
+    details['policeRank'] = assassin.policeRank
+    details['isWanted'] = assassin.isWanted
     return details
     
 
 
 
 def repack(details):
-    name = details[0]
-    email = details[1]
-    college = details[2]
-    address = details[3]
-    waterStatus = details[4]
-    pseudonym = details[5]
-    notes = details[6]
-    isPolice = details[7]
-    isAlive = details[8]
-    policeRank = details[9]
-    isWanted = details[10]
+    '''
+    name = details['name']
+    email = details['email']
+    college = details['college']
+    address = details['address']
+    waterStatus = details['waterStatus']
+    pseudonym = details['pseudonym']
+    notes = details['notes']
+    isPolice = details['isPolice']
+    isAlive = details['isAlive']
+    policeRank = details['policeRank']
+    isWanted = details['isWanted']
     loaded_assassin = [name, email, college, address, waterStatus, pseudonym, notes, isPolice, isAlive, policeRank, isWanted]
-    return Assassin(*loaded_assassin)
+    '''
+    return Assassin(details)
 
 #test comment
 #another test commit
