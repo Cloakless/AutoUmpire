@@ -1,5 +1,5 @@
 import os
-from running import *
+from menus import *
 from assassin_class import *
 
 def startup():

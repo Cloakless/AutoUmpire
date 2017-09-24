@@ -11,6 +11,7 @@ class Assassin(object):
         self.isAlive = bool(information['isAlive'])
         self.policeRank = int(information['policeRank'])
         self.isWanted = bool(information['isWanted'])
+        self.playerID = int(information['playerID'])
 
 
 def add_more_players(player_list):
@@ -22,7 +23,7 @@ def add_more_players(player_list):
             if test != '':
                 return player_list
 
-def add_player(player_id):
+def add_player(playerID):
     name = input("Name? ")
     college = input("College? ")
     address = input("Address/Room number? ")
@@ -56,7 +57,7 @@ def add_player(player_id):
     print("You are about to add %s, of %s, %s, email %s with an initial pseudonym of %s, police status: %s and additional notes: %s" % (name, address, college, email, pseudonym, isPolice, notes))
     confirmation = input("Press enter to confirm; to cancel enter any other string. ")
     if confirmation == '':
-        new_assassin = {'name': name, 'email': email, 'player_id': player_id, 'college': college, 'address': address, 'waterStatus': waterStatus, 'pseudonym': [pseudonym], 'notes': notes, 'isPolice': isPolice, 'isAlive': True, 'policeRank': rank, 'isWanted': False}
+        new_assassin = {'name': name, 'email': email, 'playerID': playerID, 'college': college, 'address': address, 'waterStatus': waterStatus, 'pseudonym': [pseudonym], 'notes': notes, 'isPolice': isPolice, 'isAlive': True, 'policeRank': rank, 'isWanted': False}
         return Assassin(new_assassin)
     else:
         return False
