@@ -2,20 +2,32 @@ from setup import *
 from assassin_class import *
 
 def main_menu(data):
-    game_name = data['name']
-    game_config = data['settings']
-    player_list = data['players']
-    print('Main Menu:')
-    print(game_name)
-    print(game_config)
-    print(player_list)
-    print(player_list[0].name)
-    player_menu(data)
+    while True:
+        game_name = data['name']
+        game_config = data['settings']
+        player_list = data['players']
+        menu_selection = input('\nMAIN MENU\n\nPlayer Menu: p\nEvent Menu: e\nWebsite Menu: w\nSave and Exit: x\n')
+
+        data = player_menu(data)
 
 
 def player_menu(data):
     while True:
-        option = input('Add new player: n\n Edit an existing player: e\n')
+        option = input('\nPLAYER MENU\n\nAdd new player: n\nEdit an existing player: e\nReturn to Main Menu: x\n')
         if option == 'n':
             data['players'] = add_more_players(data['players'])
             break
+        elif option == 'e':
+            #edit existing player
+            break
+        elif option == 'x':
+            break
+        else:
+            print('Invalid selection. Please select another option.\n')
+    return data
+
+def event_menu(data):
+    while True:
+        option = input('\nEVENT MENU\n\nEvent options\n')
+        #event menu
+    return data

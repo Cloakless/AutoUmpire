@@ -17,10 +17,11 @@ def startup():
             if not os.path.isfile('./' + load_file):
                 print("That is not a valid file name. ", end = "")
             else:
-                print("Loading " + load_file + " ...")
+                print("\nLoading " + load_file + " ...")
                 loaded_data = load(load_file)
                 break
         data = loaded_data
+    print('Welcome, ' + data['settings']['umpire_name'])
     main_menu(data)
 
 def newgame():
