@@ -61,3 +61,47 @@ def add_player(playerID):
         return Assassin(new_assassin)
     else:
         return False
+
+
+def save(data):
+    with open(data['name'], 'w') as file:
+        config = data['settings']
+        file.write(str(config)+'\n')
+        list_of_players = []
+        for assassin in data['players']:
+            list_of_players.append(unpack(assassin))
+        file.write(str(list_of_players))
+        file.write(str(data['events']))
+
+def load(file):
+    player_list = []
+    with open(file, 'r') as load_file:
+        config_string = (load_file.readline()).strip()
+        game_config = eval(config_string)
+        list_of_players = eval((load_file.readline()).strip())
+        for details in list_of_players:
+            player_list.append(repack(details))
+        event_list = eval((load_file.readline()).strip())
+    loaded_data = {'name': file, 'settings': game_config, 'players': player_list, 'events': event_list}
+    return loaded_data
+
+def unpack(assassin):
+    details = {}
+    details['name'] = assassin.name
+    details['email'] = assassin.email
+    details['college'] = assassin.college
+    details['address'] = assassin.address
+    details['waterStatus'] = assassin.waterStatus
+    details['pseudonym'] = assassin.pseudonym
+    details['notes'] = assassin.notes
+    details['isPolice'] = assassin.isPolice
+    details['isAlive'] = assassin.isAlive
+    details['policeRank'] = assassin.policeRank
+    details['isWanted'] = assassin.isWanted
+    return details
+    
+
+
+
+def repack(details):
+    return Assassin(details)
