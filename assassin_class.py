@@ -30,6 +30,8 @@ def add_player(playerID):
     college = input("College? ")
     address = input("Address/Room number? ")
     email = input("CRSId or email? ")
+    if '@' not in email:
+        email += '@cam.ac.uk'
     while True:
         water = input("Water status? ('n' for No Water, 'c' for Water With Care, 'f' for Full Water) ")
         if (water == 'n') or (water == 'c') or (water == 'f'):
