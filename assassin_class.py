@@ -74,8 +74,8 @@ def save(data):
         list_of_players = []
         for assassin in data['players']:
             list_of_players.append(unpack(assassin))
-        file.write(str(list_of_players))
-        file.write(str(data['events']))
+        file.write(str(list_of_players)+'\n')
+        file.write(str(data['events'])+'\n')
 
 def load(file):
     player_list = []
